@@ -1,32 +1,29 @@
-console.log("コンテンツスクリプトからのログ");
+// 動いてる証、背景色を変更する
+$('body').css('background', '#600');
 
+// 前日にランクインしていたものを削除する
 function convertElem(){
-  $(".ranking-item").text("キタモト");
+  $.each( $(".ranking-item:contains('位前日')"), function(){
+    $(this).remove();
+  });
+
+  // 表示しているランキングのアイテム数を通知したい
 }
 
-$(function() {
-  convertElem();
-  $('body').css('background', '#600');
-});
- 
-// 対象ノードを選択
+convertElem();
+
+// ランキング要素を格納する要素を監視する。
+// ランキング情報が追加されたらランクイン経験のあるものは削除する
 var target = document.querySelector('.ranking-items.adjust');
-console.log(target);
 
 // オブザーバインスタンスを作成
 var observer = new MutationObserver(function(mutations) {
-  mutations.forEach(function(mutation) {
-    console.log(mutation.type);
-    $(function() {
-      convertElem();
-    });
-  });    
+  console.log(mutations);
+  convertElem();
 });
 
 // オブザーバの設定
-var config = { attributes: true, childList: true, characterData: true }
+var config = { childList: true }
  
 // 対象ノードとオブザーバの設定を渡す
 observer.observe(target, config);
-
-alert("yaaa");
