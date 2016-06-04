@@ -1,32 +1,29 @@
-console.log("コンテンツスクリプトからのログ");
+// この拡張機能が動いてる目印として、背景色を変更する
+$('body').css('background', '#600');
 
+// 前日にランクインしていたものを削除する
 function convertElem(){
-  $(".ranking-item").text("キタモト");
+  // ランキング作品かどうかを判断するパーサー。変更される機会が多いと思われる
+  $.each( $(".ranking-item:contains('位前日')"), function(){
+    $(this).remove();
+  });
+
+  // TODO: 表示しているランキングのアイテム数を通知したい
 }
 
-$(function() {
-  convertElem();
-  $('body').css('background', '#600');
-});
- 
-// 対象ノードを選択
+convertElem();
+
+// ランキング要素を格納する要素を監視する。
+// ランキング情報が追加されたらランクイン経験のあるものは削除する
 var target = document.querySelector('.ranking-items.adjust');
-console.log(target);
 
 // オブザーバインスタンスを作成
 var observer = new MutationObserver(function(mutations) {
-  mutations.forEach(function(mutation) {
-    console.log(mutation.type);
-    $(function() {
-      convertElem();
-    });
-  });    
+  convertElem();
 });
 
-// オブザーバの設定
-var config = { attributes: true, childList: true, characterData: true }
+// 子要素の変更を監視する
+var config = { childList: true }
  
-// 対象ノードとオブザーバの設定を渡す
+// 監視対象ノードと監視内容をオブザーバに渡す
 observer.observe(target, config);
-
-alert("yaaa");
