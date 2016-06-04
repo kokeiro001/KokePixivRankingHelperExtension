@@ -1,5 +1,4 @@
 KokePixivRankingHelperExtension
-
 ====
 
 ## 概要
