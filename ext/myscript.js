@@ -18,7 +18,6 @@ var target = document.querySelector('.ranking-items.adjust');
 
 // オブザーバインスタンスを作成
 var observer = new MutationObserver(function(mutations) {
-  console.log(mutations);
   convertElem();
 });
 

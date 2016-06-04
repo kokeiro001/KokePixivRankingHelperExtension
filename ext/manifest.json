@@ -2,9 +2,6 @@
      "manifest_version": 2,
      "name": "KokePixivRankingHelper",
      "version": "0.1",
-     "background": {
-        "scripts": ["background.js"]
-      },
      "content_scripts" : [
        {
          "matches" : ["http://www.pixiv.net/ranking.php*"],
